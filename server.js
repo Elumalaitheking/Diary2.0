@@ -169,7 +169,7 @@ function getNextId(items) {
   return items.length ? Math.max(...items.map((i) => i.id)) + 1 : 1;
 }
 
-function serveFile(res, filepath) {
+function serveFile(req, res, filepath) {
   const ext = path.extname(filepath).toLowerCase();
   const types = {
     '.html': 'text/html; charset=utf-8',
@@ -183,6 +183,7 @@ function serveFile(res, filepath) {
   fs.readFile(filepath, (err, content) => {
     if (err) return sendJson(res, 404, { error: 'Not found' });
     res.writeHead(200, { 'Content-Type': types[ext] || 'application/octet-stream' });
+    if (req.method === 'HEAD') return res.end();
     res.end(content);
   });
 }
@@ -491,13 +492,13 @@ const server = http.createServer(async (req, res) => {
       return sendJson(res, 404, { error: 'Unknown API endpoint' });
     }
 
-    if (req.method === 'GET') {
-      if (url.pathname === '/' || url.pathname === '/index.html') return serveFile(res, path.join(PUBLIC_DIR, 'index.html'));
+    if (req.method === 'GET' || req.method === 'HEAD') {
+      if (url.pathname === '/' || url.pathname === '/index.html') return serveFile(req, res, path.join(PUBLIC_DIR, 'index.html'));
       const candidate = path.normalize(path.join(PUBLIC_DIR, url.pathname));
       if (candidate.startsWith(PUBLIC_DIR) && fs.existsSync(candidate) && fs.statSync(candidate).isFile()) {
-        return serveFile(res, candidate);
+        return serveFile(req, res, candidate);
       }
-      return serveFile(res, path.join(PUBLIC_DIR, 'index.html'));
+      return serveFile(req, res, path.join(PUBLIC_DIR, 'index.html'));
     }
 
     return sendJson(res, 405, { error: 'Method not allowed' });

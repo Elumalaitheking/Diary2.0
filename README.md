@@ -49,3 +49,15 @@ Open http://localhost:3000
 - reminders
 - settings
 - `schemaSql` (future migration SQL)
+
+## If your host shows README instead of the app
+Some static hosts default to rendering `README.md` when no root `index.html` is found.
+This repo now includes a root `index.html` that redirects to `public/index.html`.
+
+For the full private diary experience (auth + APIs), run the Node server:
+
+```bash
+npm start
+```
+
+Then open `http://localhost:3000`.
