@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>My Calm Diary</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <div class="app">
+    <section id="authView" class="card auth">
+      <h1>🌿 My Calm Diary</h1>
+      <p class="muted">A private diary for your life, learning, and memories.</p>
+      <form id="authForm" class="stack">
+        <label for="password">Password</label>
+        <input id="password" type="password" minlength="8" required autocomplete="current-password" />
+        <button type="submit" id="authButton">Continue</button>
+      </form>
+      <small id="authHint" class="muted"></small>
+    </section>
+
+    <main id="appView" class="hidden">
+      <header class="topbar">
+        <h2 id="pageTitle">Home</h2>
+      </header>
+
+      <section id="home" class="screen">
+        <article class="card">
+          <h3>Recent Diary Entries</h3>
+          <div id="entryList"></div>
+        </article>
+        <article class="card">
+          <h3>Upcoming Reminders</h3>
+          <div id="homeReminderList"></div>
+        </article>
+      </section>
+
+      <section id="add" class="screen hidden">
+        <form id="entryForm" class="card stack">
+          <h3 id="entryFormTitle">Add Diary Entry</h3>
+          <label for="entryDate">Date</label>
+          <input id="entryDate" type="date" required />
+          <label for="entryTitle">Title / Event</label>
+          <input id="entryTitle" type="text" maxlength="140" required />
+          <label>Diary Content</label>
+          <div class="toolbar">
+            <button type="button" data-command="italic">Italic</button>
+            <button type="button" data-command="insertParagraph">Paragraph</button>
+          </div>
+          <div id="entryEditor" class="editor" contenteditable="true" spellcheck="true" autocapitalize="sentences" autocorrect="on"></div>
+          <label for="entryPhotos">Photos (optional)</label>
+          <input id="entryPhotos" type="file" accept="image/*" capture="environment" multiple />
+          <div id="photoPreview" class="photo-grid"></div>
+          <div class="grid2">
+            <button type="button" id="saveDraft">Save Draft</button>
+            <button type="submit">Save Entry</button>
+          </div>
+          <button type="button" id="clearEntry" class="ghost">Clear Editor</button>
+          <small class="muted">Auto-saves draft every 10 seconds when typing.</small>
+        </form>
+      </section>
+
+      <section id="search" class="screen hidden">
+        <div class="card stack">
+          <h3>Search & Filter</h3>
+          <input id="searchKeyword" placeholder="Keyword or event name" />
+          <div class="grid3">
+            <input id="searchYear" type="number" placeholder="Year" />
+            <input id="searchMonth" type="number" min="1" max="12" placeholder="Month" />
+            <input id="searchDay" type="number" min="1" max="31" placeholder="Day" />
+          </div>
+          <div class="grid2">
+            <input id="searchFrom" type="date" />
+            <input id="searchTo" type="date" />
+          </div>
+          <button id="runSearch" type="button">Run Search</button>
+          <div id="searchResults"></div>
+        </div>
+      </section>
+
+      <section id="notes" class="screen hidden">
+        <div class="card stack">
+          <h3>Quick Notes</h3>
+          <input id="noteTitle" placeholder="Note title" />
+          <select id="noteCategory">
+            <option value="personal">Personal</option>
+            <option value="learning">Learning</option>
+            <option value="ideas">Ideas</option>
+          </select>
+          <textarea id="noteContent" rows="4" placeholder="Write your note"></textarea>
+          <button id="saveNote" type="button">Save Note</button>
+          <input id="noteSearch" placeholder="Search notes" />
+          <div id="noteList"></div>
+        </div>
+      </section>
+
+      <section id="settings" class="screen hidden">
+        <div class="card stack">
+          <h3>Settings</h3>
+          <label for="themeSelect">Theme</label>
+          <select id="themeSelect">
+            <option value="light">Light</option>
+            <option value="dark">Dark</option>
+          </select>
+          <button id="enableNotifications" type="button">Enable Notifications</button>
+          <button id="exportJson" type="button">Export Backup (JSON)</button>
+          <button id="exportTxt" type="button">Export Diary (TXT)</button>
+          <input id="restoreFile" type="file" accept="application/json" />
+
+          <hr />
+          <h4>Reminders</h4>
+          <input id="reminderTitle" placeholder="Reminder title" />
+          <select id="reminderType">
+            <option value="event">Event</option>
+            <option value="learning">Learning Goal</option>
+            <option value="task">Task</option>
+          </select>
+          <input id="reminderDue" type="datetime-local" />
+          <textarea id="reminderNotes" rows="2" placeholder="Reminder details"></textarea>
+          <button id="saveReminder" type="button">Save Reminder</button>
+          <div id="reminderList"></div>
+
+          <hr />
+          <h4>Password</h4>
+          <input id="currentPassword" type="password" placeholder="Current password" />
+          <input id="newPassword" type="password" minlength="8" placeholder="New password" />
+          <button id="changePassword" type="button">Change Password</button>
+          <button id="logout" type="button" class="ghost">Logout</button>
+        </div>
+      </section>
+    </main>
+
+    <nav id="bottomNav" class="bottom-nav hidden">
+      <button data-view="home" class="active">Home</button>
+      <button data-view="add">Add</button>
+      <button data-view="search">Search</button>
+      <button data-view="notes">Notes</button>
+      <button data-view="settings">Settings</button>
+    </nav>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>
