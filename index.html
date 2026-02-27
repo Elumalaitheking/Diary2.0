@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#c4d7d1" />
+  <title>Calm Diary</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="top-bar">
+    <h1>Calm Diary</h1>
+    <p>Your private space. Stored on your device.</p>
+  </header>
+
+  <main>
+    <section id="home" class="page active">
+      <h2>Recent Entries</h2>
+      <div id="entryList" class="card-list"></div>
+    </section>
+
+    <section id="add-entry" class="page">
+      <h2>Add Diary Entry</h2>
+      <form id="entryForm" class="card">
+        <label>Date
+          <input type="date" id="entryDate" required />
+        </label>
+        <label>Title / Event
+          <input type="text" id="entryTitle" placeholder="What happened today?" required />
+        </label>
+
+        <div class="editor-tools" role="toolbar" aria-label="Text formatting">
+          <button type="button" data-cmd="bold"><strong>B</strong></button>
+          <button type="button" data-cmd="italic"><em>I</em></button>
+          <button type="button" data-cmd="underline"><u>U</u></button>
+        </div>
+
+        <label>Diary Content</label>
+        <div
+          id="entryContent"
+          class="editor"
+          contenteditable="true"
+          spellcheck="true"
+          autocapitalize="sentences"
+          aria-label="Diary content"
+        ></div>
+
+        <label>Photos (optional)
+          <input type="file" id="entryPhotos" accept="image/*" capture="environment" multiple />
+        </label>
+        <div id="photoPreview" class="photo-grid"></div>
+
+        <button class="primary" type="submit">Save Entry</button>
+      </form>
+      <p id="autosaveStatus" class="hint">Auto-save idle</p>
+    </section>
+
+    <section id="search" class="page">
+      <h2>Search</h2>
+      <div class="card">
+        <label>Keyword or Event
+          <input type="text" id="searchKeyword" placeholder="search text" />
+        </label>
+        <div class="grid-2">
+          <label>From date
+            <input type="date" id="searchFrom" />
+          </label>
+          <label>To date
+            <input type="date" id="searchTo" />
+          </label>
+        </div>
+        <div class="grid-3">
+          <label>Month
+            <input type="number" min="1" max="12" id="searchMonth" />
+          </label>
+          <label>Year
+            <input type="number" min="1900" max="3000" id="searchYear" />
+          </label>
+          <button id="runSearch" class="primary" type="button">Search</button>
+        </div>
+      </div>
+      <div id="searchResults" class="card-list"></div>
+    </section>
+
+    <section id="notes" class="page">
+      <h2>Notes</h2>
+      <form id="noteForm" class="card">
+        <label>Type
+          <select id="noteType">
+            <option value="quick">Quick</option>
+            <option value="learning">Learning</option>
+            <option value="idea">Idea</option>
+          </select>
+        </label>
+        <label>Tags (comma-separated)
+          <input id="noteTags" placeholder="study, health" />
+        </label>
+        <label>Note
+          <textarea id="noteText" rows="4" required></textarea>
+        </label>
+        <button class="primary" type="submit">Add Note</button>
+      </form>
+      <label>Search Notes
+        <input id="noteSearch" placeholder="Find notes" />
+      </label>
+      <div id="noteList" class="card-list"></div>
+    </section>
+
+    <section id="reminders" class="page">
+      <h2>Reminders</h2>
+      <form id="reminderForm" class="card">
+        <label>Title
+          <input id="reminderTitle" required />
+        </label>
+        <label>Type
+          <select id="reminderType">
+            <option value="event">Event</option>
+            <option value="learning">Learning Goal</option>
+            <option value="task">Task</option>
+          </select>
+        </label>
+        <label>Date & Time
+          <input type="datetime-local" id="reminderTime" required />
+        </label>
+        <button class="primary" type="submit">Add Reminder</button>
+      </form>
+      <div id="reminderCalendar" class="card"></div>
+      <div id="reminderList" class="card-list"></div>
+    </section>
+
+    <section id="settings" class="page">
+      <h2>Settings</h2>
+      <div class="card settings-list">
+        <button id="toggleTheme">Toggle Light / Dark</button>
+        <button id="enableNotifications">Enable Notifications</button>
+        <button id="exportJson">Export JSON</button>
+        <button id="exportTxt">Export Text</button>
+        <button id="exportPdf">Export PDF</button>
+        <label class="file-btn">Restore Backup
+          <input type="file" id="restoreFile" accept="application/json" />
+        </label>
+        <button id="clearData" class="danger">Clear All Data</button>
+      </div>
+    </section>
+  </main>
+
+  <nav class="bottom-nav" aria-label="Main navigation">
+    <button data-page="home" class="active">Home</button>
+    <button data-page="add-entry">Add Entry</button>
+    <button data-page="search">Search</button>
+    <button data-page="notes">Notes</button>
+    <button data-page="reminders">Reminders</button>
+    <button data-page="settings">Settings</button>
+  </nav>
+
+  <script src="app.js"></script>
+</body>
+</html>
