@@ -1,0 +1,5 @@
+node_modules/
+diary.db
+*.log
+
+diary-data.json

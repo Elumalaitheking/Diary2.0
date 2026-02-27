@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>My Calm Diary</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div id="app" class="app">
+      <section id="authView" class="card auth-card">
+        <h1>🌿 My Calm Diary</h1>
+        <p class="sub">A private space for your day, ideas, and memories.</p>
+        <form id="authForm">
+          <label>Password</label>
+          <input id="password" type="password" required minlength="8" autocomplete="current-password" />
+          <button type="submit" id="authBtn">Continue</button>
+        </form>
+        <small id="authHint"></small>
+      </section>
+
+      <main id="mainView" class="hidden">
+        <header class="topbar">
+          <h2 id="viewTitle">Home</h2>
+        </header>
+
+        <section id="home" class="screen">
+          <div class="card">
+            <h3>Recent Entries</h3>
+            <div id="entryList"></div>
+          </div>
+          <div class="card">
+            <h3>Upcoming Reminders</h3>
+            <div id="reminderPreview"></div>
+          </div>
+        </section>
+
+        <section id="add" class="screen hidden">
+          <form id="entryForm" class="card form-stack">
+            <h3>New Diary Entry</h3>
+            <label>Date</label>
+            <input id="entryDate" type="date" required />
+            <label>Title / Event</label>
+            <input id="entryTitle" type="text" required maxlength="120" />
+            <label>Diary Content</label>
+            <div class="format-tools">
+              <button type="button" data-cmd="italic"><i>I</i></button>
+              <button type="button" data-cmd="insertParagraph">¶</button>
+            </div>
+            <div id="editor" class="editor" contenteditable="true" spellcheck="true" autocapitalize="sentences" autocorrect="on"></div>
+            <label>Photos</label>
+            <input id="entryPhotos" type="file" accept="image/*" multiple capture="environment" />
+            <div id="photoPreview" class="photo-preview"></div>
+            <div class="row">
+              <button type="button" id="saveDraft">Save Draft</button>
+              <button type="submit">Save Entry</button>
+            </div>
+            <small>Drafts auto-save every 10 seconds.</small>
+          </form>
+        </section>
+
+        <section id="search" class="screen hidden">
+          <div class="card form-stack">
+            <h3>Search Diary</h3>
+            <input id="searchKeyword" placeholder="keyword / event" />
+            <div class="grid2">
+              <input id="searchYear" type="number" placeholder="Year" />
+              <input id="searchMonth" type="number" min="1" max="12" placeholder="Month" />
+            </div>
+            <div class="grid2">
+              <input id="searchFrom" type="date" />
+              <input id="searchTo" type="date" />
+            </div>
+            <button id="runSearch">Run Search</button>
+            <div id="searchResults"></div>
+          </div>
+        </section>
+
+        <section id="notes" class="screen hidden">
+          <div class="card form-stack">
+            <h3>Quick Notes</h3>
+            <input id="noteTitle" placeholder="Note title" />
+            <select id="noteCategory">
+              <option value="personal">Personal</option>
+              <option value="learning">Learning</option>
+              <option value="ideas">Ideas</option>
+            </select>
+            <textarea id="noteContent" rows="4" placeholder="Write your note..."></textarea>
+            <button id="saveNote">Save Note</button>
+            <input id="noteSearch" placeholder="Search notes" />
+            <div id="noteList"></div>
+          </div>
+        </section>
+
+        <section id="settings" class="screen hidden">
+          <div class="card form-stack">
+            <h3>Settings</h3>
+            <label>Theme</label>
+            <select id="themeSelect">
+              <option value="light">Light</option>
+              <option value="dark">Dark</option>
+            </select>
+            <button id="enableNotifs">Enable Notifications</button>
+            <button id="exportData">Export Data (JSON)</button>
+            <input id="restoreInput" type="file" accept="application/json" />
+            <hr />
+            <h4>Reminders</h4>
+            <input id="reminderTitle" placeholder="Reminder title" />
+            <select id="reminderType">
+              <option value="event">Event</option>
+              <option value="learning">Learning Goal</option>
+              <option value="task">Daily Task</option>
+            </select>
+            <input id="reminderDue" type="datetime-local" />
+            <textarea id="reminderNotes" rows="2" placeholder="Details"></textarea>
+            <button id="saveReminder">Save Reminder</button>
+            <div id="reminderList"></div>
+            <hr />
+            <h4>Change Password</h4>
+            <input id="currentPassword" type="password" placeholder="Current password" />
+            <input id="newPassword" type="password" minlength="8" placeholder="New password" />
+            <button id="changePassword">Update Password</button>
+            <button id="logoutBtn">Logout</button>
+          </div>
+        </section>
+      </main>
+
+      <nav id="bottomNav" class="bottom-nav hidden">
+        <button data-view="home" class="active">Home</button>
+        <button data-view="add">Add Entry</button>
+        <button data-view="search">Search</button>
+        <button data-view="notes">Notes</button>
+        <button data-view="settings">Settings</button>
+      </nav>
+    </div>
+
+    <script src="/app.js"></script>
+  </body>
+</html>

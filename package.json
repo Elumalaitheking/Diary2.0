@@ -1,0 +1,10 @@
+{
+  "name": "diary2-mobile-first",
+  "version": "1.0.0",
+  "description": "Mobile-first personal diary web app",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  }
+}

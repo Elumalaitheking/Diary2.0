@@ -1,0 +1,78 @@
+:root {
+  --bg: #f7f1e3;
+  --card: #fffaf0;
+  --text: #2f2a24;
+  --primary: #9ab7c9;
+  --accent: #8a6f5a;
+}
+
+:root.dark {
+  --bg: #1f232a;
+  --card: #2a3038;
+  --text: #ece9e3;
+  --primary: #7aa58d;
+  --accent: #c1b3a4;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.app { max-width: 760px; margin: 0 auto; padding: 12px 12px 84px; }
+.card {
+  background: var(--card);
+  border-radius: 14px;
+  padding: 14px;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+h1,h2,h3,h4 { margin: 0 0 10px; }
+.sub { margin-top: 0; opacity: 0.75; }
+.hidden { display: none !important; }
+.topbar { position: sticky; top: 0; z-index: 10; background: var(--bg); padding: 8px 4px 10px; }
+.form-stack { display: flex; flex-direction: column; gap: 8px; }
+input, select, textarea, button, .editor {
+  border: 1px solid #cfc6bb;
+  border-radius: 10px;
+  padding: 10px;
+  font-size: 16px;
+  background: #fff;
+}
+button { background: var(--primary); color: #1f2a33; font-weight: 600; }
+.row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.editor { min-height: 140px; line-height: 1.6; background: #fffef8; }
+.format-tools { display: flex; gap: 8px; }
+.photo-preview { display: flex; gap: 8px; overflow-x: auto; }
+.photo-preview img { width: 90px; height: 90px; object-fit: cover; border-radius: 10px; }
+.item { border-bottom: 1px solid rgba(0,0,0,0.08); padding: 10px 0; }
+.item:last-child { border-bottom: none; }
+.meta { font-size: 12px; opacity: 0.7; }
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 2px;
+  background: #ebe2d8;
+  border-top: 1px solid #d4c8bc;
+}
+.bottom-nav button {
+  border-radius: 0;
+  border: none;
+  padding: 12px 4px calc(12px + env(safe-area-inset-bottom));
+  font-size: 12px;
+  background: transparent;
+}
+.bottom-nav button.active { background: var(--primary); }
+
+@media (min-width: 768px) {
+  .app { padding-bottom: 20px; }
+  .bottom-nav { position: static; border-radius: 12px; overflow: hidden; margin-top: 10px; }
+}
