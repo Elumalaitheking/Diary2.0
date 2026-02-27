@@ -1,0 +1,9 @@
+{
+  "name": "Calm Diary",
+  "short_name": "Diary",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f8f1e6",
+  "theme_color": "#9fc3bb",
+  "icons": []
+}
