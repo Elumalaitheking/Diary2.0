@@ -1,60 +1,51 @@
-# My Calm Diary (Mobile-First)
+# My Calm Diary (Mobile-First Private Diary)
 
-A private, smartphone-friendly personal diary web app with secure login, diary entries, photos, notes, reminders, search, and backup tools.
+A complete private diary web application designed for phone browsers.
+It supports secure login, rich diary entries with photos, notes, reminders, search/filtering, theme control, and backup/restore.
+
+## Highlights
+- Mobile-first UI with bottom navigation (Home, Add, Search, Notes, Settings)
+- Private single-user authentication with salted PBKDF2 password hashing
+- Diary entries with date/title/rich text, optional multiple photos, draft auto-save
+- Search by keyword, year, month, day, and advanced date range
+- Notes section with categories (personal, learning, ideas)
+- Reminder system with browser notification support
+- Light/dark themes
+- JSON backup restore + plain text diary export
+- Persistent local storage in `diary-data.json`
+- Embedded SQL schema in `server.js` (`SQL_SCHEMA`) for future SQLite/cloud migration
 
 ## Tech Stack
-- **Frontend:** Vanilla HTML/CSS/JS (mobile-first responsive UI)
-- **Backend:** Node.js `http` server (no external runtime dependencies)
-- **Storage:** Persistent local JSON database file (`diary-data.json`)
-- **Auth:** Password hash using `crypto.pbkdf2Sync` + HTTP-only session cookie
+- Frontend: Vanilla HTML/CSS/JS
+- Backend: Node.js built-in `http` server
+- Data persistence: JSON file on disk (`diary-data.json`)
 
-## Features Implemented
-1. **Authentication**
-   - First-time registration (single private account)
-   - Secure password login/logout
-   - Change password from settings
-2. **Diary Entries**
-   - Date, title, rich text editor, optional multiple photos
-   - Browser spellcheck + autocorrect-enabled editor
-   - Auto-save draft every 10 seconds + manual draft save
-3. **Search & Filters**
-   - Keyword, year, month, day, and date-range filtering
-4. **Notes**
-   - Categorized notes: personal / learning / ideas
-   - Searchable note list
-5. **Reminders**
-   - Event / learning / task reminders
-   - Browser notification support (if permission granted)
-6. **Photo Handling**
-   - Phone camera/gallery upload supported
-   - Client-side image compression before saving
-7. **UI/UX**
-   - Mobile-first, calm diary style with bottom navigation
-   - Light/Dark theme toggle
-8. **Data Utilities**
-   - Export data as JSON
-   - Restore data from JSON backup
-9. **Persistence**
-   - All entries, notes, reminders, and settings persist in `diary-data.json`
-
-## Database Schema
-- The running app persists data in JSON for easy local setup.
-- A full relational SQL schema (users, diary_entries, notes, reminders, user_settings) is embedded in `server.js` as `SQL_SCHEMA` for future SQLite/cloud upgrade.
-
-## Setup & Run
+## Run Locally
 ```bash
 npm install
 npm start
 ```
-Open: `http://localhost:3000`
-
-## Mobile Usage Tips
-- Use phone browser "Add to Home Screen" for app-like usage.
-- Photo upload input supports camera capture on mobile.
-- Bottom navigation is optimized for thumb reach.
+Open http://localhost:3000
 
 ## Security Notes
-- Passwords are hashed and salted via PBKDF2.
-- Session cookies are HTTP-only.
-- Basic secure headers are set server-side.
-- For production, run behind HTTPS and use a persistent session store.
+- Passwords are hashed using `crypto.pbkdf2Sync` with per-user salt.
+- Sessions are HTTP-only cookies.
+- Security headers (CSP, frame protection, referrer policy, etc.) are added server-side.
+- For production: run behind HTTPS and use a durable distributed session store.
+
+## API Overview
+- Auth: `/api/auth/status`, `/api/auth/register`, `/api/auth/login`, `/api/auth/logout`, `/api/auth/change-password`
+- Entries: `GET/POST /api/entries`, `DELETE /api/entries/:id`
+- Notes: `GET/POST /api/notes`, `DELETE /api/notes/:id`
+- Reminders: `GET/POST /api/reminders`, `DELETE /api/reminders/:id`
+- Settings: `GET /api/settings`, `POST /api/settings/theme`
+- Backup: `GET /api/export`, `POST /api/restore`, `GET /api/export.txt`
+
+## Data Model
+`diary-data.json` stores:
+- users
+- entries
+- notes
+- reminders
+- settings
+- `schemaSql` (future migration SQL)
